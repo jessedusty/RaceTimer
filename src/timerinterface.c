@@ -110,7 +110,7 @@ static void timer_callback(void *data) {
   snprintf(labelText, 10,"%d : %02d",minutes,seconds);
   
   if (total_seconds < 0)
-    snprintf(labelText, 10,"+%d:%02d",abs(total_seconds)/(60*60),abs(total_seconds)/60);
+    snprintf(labelText, 10,"+%d:%02d",abs(total_seconds)/(60*60),abs(total_seconds)/60%60);
   
   text_layer_set_text(s_textlayer_1, labelText);
   
