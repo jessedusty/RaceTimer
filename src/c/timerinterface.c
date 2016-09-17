@@ -44,12 +44,12 @@ static AppTimer *s_timer;
 
 int total_seconds = 0;
 
-int timer_mode = 3;
+int timer_mode = 5;
 
 char labelText[20];
 
 static int presetTimes[] = {5*60, 4*60, 60};
-//static int threeMin[] = {3*60, 2*60, 60 + 30, 60, 30, 20, 10};
+static int threeMin[] = {3*60, 2*60, 60 + 30, 60, 30, 20, 10};
 
 static int singleAlertTimes[] = {4*60,3*60,2*60,60+30,60,50,40,30,20,10,9,8,7,6};
 static int doubleAlertTimes[] = {5,4,3,2,1}; 
@@ -142,14 +142,27 @@ void setMinutes(int min) {
 int findClosest() {
   
   int closest = 0; 
-  int closeness = presetTimes[0];
-  for (int j = 0; j < (int)sizeof(presetTimes) / (int)sizeof(presetTimes[0]); j++) {
-    int diff = abs(total_seconds - presetTimes[j]);
-    if (diff < closeness) {
-      closeness = diff; 
-      closest = j;
+  
+  if (timer_mode == 5) {
+    int closeness = presetTimes[0];
+    for (int j = 0; j < (int)sizeof(presetTimes) / (int)sizeof(presetTimes[0]); j++) {
+      int diff = abs(total_seconds - presetTimes[j]);
+      if (diff < closeness) {
+        closeness = diff; 
+        closest = j;
+      }
+    }
+  } else {
+    int closeness = threeMin[0];
+    for (int j = 0; j < (int)sizeof(threeMin) / (int)sizeof(threeMin[0]); j++) {
+      int diff = abs(total_seconds - threeMin[j]);
+      if (diff < closeness) {
+        closeness = diff; 
+        closest = j;
+      }
     }
   }
+  
    return closest;  
 }
 
@@ -158,8 +171,11 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   //text_layer_set_text(text_layer, "Select");
   
    
-
-  total_seconds = presetTimes[findClosest()];
+  if (timer_mode == 5) {
+    total_seconds = presetTimes[findClosest()];
+  } else {
+    total_seconds = threeMin[findClosest()];
+  }
   updateUI();
   syncedNotification();
 }

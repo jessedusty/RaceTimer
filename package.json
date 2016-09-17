@@ -4,9 +4,6 @@
     "keywords": [],
     "name": "racetimer",
     "pebble": {
-        "capabilities": [
-            ""
-        ],
         "displayName": "RaceTimer",
         "enableMultiJS": false,
         "messageKeys": [],
@@ -16,6 +13,7 @@
         },
         "sdkVersion": "3",
         "targetPlatforms": [
+            "aplite",
             "basalt"
         ],
         "uuid": "19945214-fea3-47b6-9b38-0838ffadcb2e",

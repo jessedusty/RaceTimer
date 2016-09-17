@@ -32,12 +32,12 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
   switch (cell_index->row) {
     case 0:
       // This is a basic menu item with a title and subtitle
-      menu_cell_basic_draw(ctx, cell_layer, "5 minute", "race timer", NULL);
+      menu_cell_basic_draw(ctx, cell_layer, "3 minute", "race timer", NULL);
       break;
     case 1:
       // This is a basic menu icon with a cycling icon
-      //menu_cell_basic_draw(ctx, cell_layer, "5 minute", "race timer", NULL);
-      menu_cell_basic_draw(ctx, cell_layer, "", "", NULL);
+      menu_cell_basic_draw(ctx, cell_layer, "5 minute", "race timer", NULL);
+      //menu_cell_basic_draw(ctx, cell_layer, "", "", NULL);
       break;
   }
 
@@ -55,7 +55,7 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
       setMinutes(5);
       break;
     case 0:
-      setMinutes(5);
+      setMinutes(3);
       break;
     }
 
