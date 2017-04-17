@@ -166,7 +166,6 @@ int findClosest() {
    return closest;  
 }
 
-
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   //text_layer_set_text(text_layer, "Select");
   
@@ -198,8 +197,6 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
 
-
-
 static void handle_window_unload(Window* window) {
   app_timer_cancel(s_timer);
   destroy_ui();
@@ -210,7 +207,7 @@ void show_timerinterface(void) {
   
   tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler)tick_handler);
   
-    window_set_click_config_provider(s_window, click_config_provider);
+  window_set_click_config_provider(s_window, click_config_provider);
 
   window_set_window_handlers(s_window, (WindowHandlers) {
     .unload = handle_window_unload,

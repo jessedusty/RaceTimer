@@ -1,5 +1,6 @@
 #include "pebble.h"
 #include "timerinterface.h"
+#include "wait_for_start.h"
 
 #define NUM_MENU_SECTIONS 1
 #define NUM_MENU_ICONS 0
@@ -56,11 +57,14 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
       break;
     case 0:
       setMinutes(3);
+      
       break;
     }
 
-    show_timerinterface();
+    show_wait_for_start();
+//     show_timerinterface();
 }
+
 
 static void main_window_load(Window *window) {
   // Here we load the bitmap assets
@@ -87,6 +91,7 @@ static void main_window_load(Window *window) {
  // window_set_fullscreen(window, false);
 
   layer_add_child(window_layer, menu_layer_get_layer(s_menu_layer));
+  
 }
 
 static void main_window_unload(Window *window) {
