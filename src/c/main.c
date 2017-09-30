@@ -72,10 +72,15 @@ static void main_window_load(Window *window) {
 
   // Now we prepare to initialize the menu layer
   Layer *window_layer = window_get_root_layer(window);
-  GRect bounds = layer_get_frame(window_layer);
+  int16_t width = layer_get_bounds(window_layer).size.w;
+  int16_t height = layer_get_bounds(window_layer).size.w;
+  
+  
+  GRect menuBounds = GRect(0, STATUS_BAR_LAYER_HEIGHT, width, height - STATUS_BAR_LAYER_HEIGHT);
 
+  
   // Create the menu layer
-  s_menu_layer = menu_layer_create(bounds);
+  s_menu_layer = menu_layer_create(menuBounds);
   menu_layer_set_callbacks(s_menu_layer, NULL, (MenuLayerCallbacks){
     .get_num_sections = menu_get_num_sections_callback,
     .get_num_rows = menu_get_num_rows_callback,
@@ -88,9 +93,19 @@ static void main_window_load(Window *window) {
   // Bind the menu layer's click config provider to the window for interactivity
   menu_layer_set_click_config_onto_window(s_menu_layer, window);
   
- // window_set_fullscreen(window, false);
-
   layer_add_child(window_layer, menu_layer_get_layer(s_menu_layer));
+  
+  
+    // Status bar
+  
+  StatusBarLayer *status_bar = status_bar_layer_create();
+  
+  // Change the status bar width to make space for the action bar
+  GRect frame = GRect(0, 0, width, STATUS_BAR_LAYER_HEIGHT);
+  layer_set_frame(status_bar_layer_get_layer(status_bar), frame);
+  layer_add_child(window_layer, status_bar_layer_get_layer(status_bar));
+
+
   
 }
 
